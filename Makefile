@@ -1,4 +1,4 @@
-APPLICATION = UPER-Release
+APPLICATION = WeIO_firmware
 RIOTBASE ?= $(CURDIR)/../RIOT
 BOARD ?= weio
 DIRS += tools/lpcrc/
