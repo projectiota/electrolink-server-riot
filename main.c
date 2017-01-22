@@ -21,17 +21,17 @@
 #include <stdio.h>
 #include "periph/pwm.h"
 #include "periph/gpio.h"
-#include "CDC.h"
+#include "usb_enum.h"
 #include "IAP.h"
 
 uint32_t GUID[4];
-SFPStream stream;
+CMDIFStream stream;
 
 int main(void)
 {
     IAP_GetSerialNumber(GUID);
        
-    gpio_init(256+15, GPIO_OUT);
+    gpio_init(256 + 15, GPIO_OUT);
     
     char buf[64];
     CDC_Init(&stream, GUID);
@@ -42,7 +42,7 @@ int main(void)
         if (size) {
             stream.read((uint8_t*)&buf, size);
             printf("%s\n", (char*)&buf);
-            gpio_toggle(256+15);
+            gpio_toggle(256 + 15);
         }
     }
 
