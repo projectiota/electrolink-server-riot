@@ -3,13 +3,16 @@ RIOTBASE ?= $(CURDIR)/../RIOT
 BOARD ?= weio
 DIRS += tools/lpcrc/
 PORT ?= /dev/tty.usbserial
+CFLAGS += -DLOG_LEVEL=LOG_ALL
 
+USEPKG += jsmn
 #USEMODULE += xtimer
 #USEMODULE += dht
 #FEATURES_REQUIRED += periph_timer
 
 INCLUDES += -I$(CURDIR)/include
 QUIET ?= 0
+#CFLAGS += -DDEVELHELP
 
 #include the USB support
 DIRS += usb
