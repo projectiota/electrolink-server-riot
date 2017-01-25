@@ -46,8 +46,8 @@ __attribute__ ((aligned(4))) const uint8_t DeviceDescriptor[] = {
     0x02,                               /* bDeviceSubClass */
     0x01,                               /* bDeviceProtocol - Interface Association Descriptor */
     USB_MAX_PACKET0,                    /* bMaxPacketSize0 */
-    WBVAL(0x257F),                      /* idVendor */
-    WBVAL(0x0001),                      /* idProduct */
+    WBVAL(0x1209),                      /* idVendor */
+    WBVAL(0x2552),                      /* idProduct */
     WBVAL(0x0100), /* 1.00 */           /* bcdDevice */
     0x01,                               /* iManufacturer */
     0x02,                               /* iProduct */
