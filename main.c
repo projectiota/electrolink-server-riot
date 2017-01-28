@@ -3,12 +3,15 @@
 #include <stdlib.h>
 #include "periph/pwm.h"
 #include "periph/gpio.h"
-#include "usb_enum.h"
-#include "IAP.h"
 #include <stdio.h>
 #include "erpc.h"
 
-uint32_t GUID[4];
+#ifdef USE_USB
+#       include "usb_enum.h"
+#       include "IAP.h"
+        uint32_t GUID[4];
+#endif
+
 CMDIFStream stream;
 
 void digitalWrite(int argc, JSMN_PARAMS_t argv)
@@ -25,11 +28,11 @@ void digitalWrite(int argc, JSMN_PARAMS_t argv)
 
 int main(void)
 {
-    IAP_GetSerialNumber(GUID);
-       
     gpio_init(GPIO_PIN(1, 14), GPIO_OUT);
-    
+#ifdef USE_USB
+    IAP_GetSerialNumber(GUID);
     CDC_Init(&stream, GUID);
+#endif
 
     erpcAddFunction("digitalWrite", digitalWrite);
 

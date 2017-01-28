@@ -1,25 +1,34 @@
+# Application name
 APPLICATION = WeIO_firmware
+# PATH to RIOT
 RIOTBASE ?= $(CURDIR)/../RIOT
+# Target board
 BOARD ?= weio
-DIRS += tools/lpcrc/
-PORT ?= /dev/tty.usbserial
-CFLAGS += -DLOG_LEVEL=LOG_ALL
-LINKFLAGS += -Wl,--print-memory-usage
 
+# UART port, used for 'make term'
+PORT ?= /dev/tty.usbserial
+
+# LOG verbosity (LOG_ALL, LOG_ERROR, LOG_INFO, LOG_NONE)
+CFLAGS += -DLOG_LEVEL=LOG_NONE
+
+# Build silently
+QUIET ?= 1
+
+# Use JSMN from RIOT package
 USEPKG += jsmn
-#USEMODULE += xtimer
-#USEMODULE += dht
-#FEATURES_REQUIRED += periph_timer
 
 INCLUDES += -I$(CURDIR)/include
-QUIET ?= 1
-#CFLAGS += -DDEVELHELP
 
-#include the USB support
-DIRS += usb
-INCLUDES += -I$(CURDIR)/usb/include
-USEMODULE += usb 
 
+ifeq ($(BOARD), weio)
+DIRS += tools/lpcrc/
+DIRS += usb/lpc11u34
+USEMODULE += lpc11u34
+INCLUDES += -I$(CURDIR)/usb/lpc11u34/include
+CFLAGS += -DUSE_USB
+CFLAGS += -DUSB_LPC11U34
+LINKFLAGS += -Wl,--print-memory-usage
+endif
 
 crc:
 	./tools/lpcrc/lpcrc $(BINDIR)/$(APPLICATION).bin	
