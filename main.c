@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include "erpc.h"
 
+uint32_t GUID[4];
+CMDIFStream stream;
 
 void digitalWrite(int argc, JSMN_PARAMS_t argv)
 {
@@ -15,11 +17,11 @@ void digitalWrite(int argc, JSMN_PARAMS_t argv)
     p = strtol((char*)argv[0], NULL, 10);
     if ((p % 1000) == 0)
         gpio_toggle(GPIO_PIN(1, 14));
+    char* str = "{ \"Status\": \"OK\" }";
+    stream.write(str, strlen(str));
 }
 
 
-uint32_t GUID[4];
-CMDIFStream stream;
 
 int main(void)
 {

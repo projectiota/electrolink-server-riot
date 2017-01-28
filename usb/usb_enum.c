@@ -37,7 +37,7 @@
 uint32_t CDC_Stream_available(void);
 uint32_t CDC_Stream_read(uint8_t *buf, uint32_t len);
 uint8_t CDC_Stream_readByte(void);
-void CDC_Stream_write(uint8_t *buf, uint32_t len);
+void CDC_Stream_write(char *buf, uint32_t len);
 void CDC_Stream_flush(void);
 
 void USB_pin_clk_init(void);
@@ -383,7 +383,7 @@ uint8_t  CDC_Stream_readByte(void) {
     return CDC_CMDIF_rxBuffer[CDC_CMDIF_rxBufferReadPos++ & CDC_CMDIF_RX_BUFFER_MASK];
 }
 
-void CDC_Stream_write(uint8_t *buf, uint32_t len) {
+void CDC_Stream_write(char *buf, uint32_t len) {
     while (len) {
         uint32_t nWrite = CDC_CMDIF_txBufferFree();
 
