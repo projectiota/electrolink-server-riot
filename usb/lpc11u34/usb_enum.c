@@ -31,8 +31,8 @@
  */
 #include <stdio.h>
 #include "usb_enum.h"
-
 #include "string.h"
+#include "global.h"
 
 uint32_t CDC_Stream_available(void);
 uint32_t CDC_Stream_read(uint8_t *buf, uint32_t len);
@@ -259,7 +259,7 @@ void inline CDC_GenerateSerialDescriptor(uint32_t guid[4]) {
     }
 }
 
-ErrorCode_t CDC_Init(CMDIFStream *stream, uint32_t guid[4]) {
+ErrorCode_t CDC_Init(CMDStream *stream, uint32_t guid[4]) {
     USBD_API_INIT_PARAM_T usb_param;
     USB_CORE_DESCS_T desc;
     USBD_HANDLE_T hUsb;

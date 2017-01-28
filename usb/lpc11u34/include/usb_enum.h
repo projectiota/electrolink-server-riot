@@ -36,14 +36,7 @@
 #include "LPC11Uxx.h"
 #include "mw_usbd_rom_api.h"
 #include "power_api.h"
-
-typedef struct _CMDIFStream {
-	uint32_t (*available)(void);					/**< Function that returns the ammount of available data */
-	uint32_t (*read)(uint8_t *buf, uint32_t len);	/**< Function that reads the data into the buffer */
-	uint8_t  (*readByte)(void);
-	void 	 (*write)(char *buf, uint32_t len);	/**< Function that write the data into the stream */
-} CMDIFStream;
-
+#include "global.h"
 
 extern uint8_t DeviceDescriptor[];
 extern uint8_t DeviceQualifierDescriptor[];
@@ -51,7 +44,7 @@ extern uint8_t StringDescriptor[];
 extern uint8_t ConfigDescriptor[];
 
 extern uint8_t USBSerialStringDescriptor[];
-ErrorCode_t CDC_Init(CMDIFStream *stream, uint32_t guid[4]);
+ErrorCode_t CDC_Init(CMDStream *stream, uint32_t guid[4]);
 
 #endif /* CDC_H_ */
 
