@@ -4,6 +4,7 @@ BOARD ?= weio
 DIRS += tools/lpcrc/
 PORT ?= /dev/tty.usbserial
 CFLAGS += -DLOG_LEVEL=LOG_ALL
+LINKFLAGS += -Wl,--print-memory-usage
 
 USEPKG += jsmn
 #USEMODULE += xtimer
@@ -11,7 +12,7 @@ USEPKG += jsmn
 #FEATURES_REQUIRED += periph_timer
 
 INCLUDES += -I$(CURDIR)/include
-QUIET ?= 0
+QUIET ?= 1
 #CFLAGS += -DDEVELHELP
 
 #include the USB support
