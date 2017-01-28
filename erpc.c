@@ -30,7 +30,6 @@ static unsigned char paramNb = 0;
  * fncTable is an array of function pointers.
  * Function pointers are installed by the user.
  */
-#define FNC_TABLE_SIZE 256
 void (*fncTable[FNC_TABLE_SIZE])(int argc, JSMN_PARAMS_t argv) = {NULL};
 
 /**
