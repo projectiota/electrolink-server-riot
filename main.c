@@ -11,16 +11,10 @@
 
 void digitalWrite(int argc, JSMN_PARAMS_t argv)
 {
-    gpio_toggle(GPIO_PIN(1, 13));
-    //JSMN_PARAMS_t params = {{0}};
-    //memcpy(params, argv, sizeof(JSMN_PARAMS_t));
-
     uint32_t p;
-    uint8_t i = 0;
-    for (i = 0; i < argc; i++) {
-        p = strtol((char*)argv[i], NULL, 10);
-        printf("%lu\n", p);
-    }
+    p = strtol((char*)argv[0], NULL, 10);
+    if ((p % 1000) == 0)
+        gpio_toggle(GPIO_PIN(1, 14));
 }
 
 

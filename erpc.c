@@ -20,9 +20,9 @@
 /**
  * Globals
  */
-static unsigned char method[8] = {0};
+static unsigned char method[16] = {0};
 static unsigned char fncIdx = 0;
-JSMN_PARAMS_t params = {0};
+JSMN_PARAMS_t params = {{0}};
 static unsigned char replyTo[32] = {0};
 static unsigned char paramNb = 0;
 
