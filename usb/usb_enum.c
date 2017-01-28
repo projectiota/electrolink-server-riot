@@ -277,8 +277,8 @@ ErrorCode_t CDC_Init(CMDIFStream *stream, uint32_t guid[4]) {
     /* initialize call back structures */
     memset((void*) &usb_param, 0, sizeof(USBD_API_INIT_PARAM_T));
     usb_param.usb_reg_base = LPC_USB_BASE;
-    usb_param.mem_base = 0x10001000;
-    usb_param.mem_size = 0x1000;
+    usb_param.mem_base = 0x20004000;
+    usb_param.mem_size = 0x800;
     usb_param.max_num_ep = 10;
 
     /* Initialize Descriptor pointers */
@@ -354,12 +354,6 @@ void USB_pin_clk_init(void) {
     LPC_IOCON ->PIO0_3 |= (0x01 << 0); /* Secondary function VBUS */
     LPC_IOCON ->PIO0_6 &= ~0x07;
     LPC_IOCON ->PIO0_6 |= (0x01 << 0); /* Secondary function SoftConn */
-
-    LPC_IOCON->PIO0_18 &= ~0x07;
-    LPC_IOCON->PIO0_18 |= 0x01;
-    LPC_IOCON->PIO0_19 &= ~0x07;
-    LPC_IOCON->PIO0_19 |= 0x01;
-
     return;
 }
 
