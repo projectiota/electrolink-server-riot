@@ -8,15 +8,21 @@
 #include <stdio.h>
 #include "erpc.h"
 
-void digitalWrite(int argc, char *argv[])
+
+void digitalWrite(int argc, JSMN_PARAMS_t argv)
 {
     gpio_toggle(GPIO_PIN(1, 13));
+    //JSMN_PARAMS_t params = {{0}};
+    //memcpy(params, argv, sizeof(JSMN_PARAMS_t));
+
+    uint32_t p;
+    uint8_t i = 0;
+    for (i = 0; i < argc; i++) {
+        p = strtol((char*)argv[i], NULL, 10);
+        printf("%lu\n", p);
+    }
 }
 
-void digitalRead(int argc, char *argv[])
-{
-    printf("FNC: digitalRead()\n");
-}
 
 uint32_t GUID[4];
 CMDIFStream stream;
@@ -30,8 +36,8 @@ int main(void)
     CDC_Init(&stream, GUID);
 
     erpcAddFunction("digitalWrite", digitalWrite);
-    erpcAddFunction("digitalRead", digitalRead);
-    volatile uint8_t size;
+
+    uint8_t size = 0;
     char buf[64];
     while(1) {
         size = stream.available();

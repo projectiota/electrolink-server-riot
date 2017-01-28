@@ -9,7 +9,8 @@
 #ifndef ERPC_H
 #define ERPC_H
 
+typedef unsigned char JSMN_PARAMS_t[8][16];
 int erpcCall(char* req, uint8_t size);
-void erpcAddFunction(char* fncName, void (*f)(int argc, char *argv[]));
+void erpcAddFunction(char* fncName, void (*f)(int argc, JSMN_PARAMS_t argv));
 
 #endif /** ERPC_H */

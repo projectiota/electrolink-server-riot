@@ -22,7 +22,7 @@
  */
 static unsigned char method[8] = {0};
 static unsigned char fncIdx = 0;
-static unsigned char params[8][16] = {0};
+JSMN_PARAMS_t params = {0};
 static unsigned char replyTo[32] = {0};
 static unsigned char paramNb = 0;
 
@@ -30,8 +30,8 @@ static unsigned char paramNb = 0;
  * fncTable is an array of function pointers.
  * Function pointers are installed by the user.
  */
-#define FNC_TABLE_SIZE  1024
-void (*fncTable[FNC_TABLE_SIZE])(int argc, char *argv[]) = {NULL};
+#define FNC_TABLE_SIZE 256
+void (*fncTable[FNC_TABLE_SIZE])(int argc, JSMN_PARAMS_t argv) = {NULL};
 
 /**
  * Fowler/Noll/Vo (FNV) hash function, variant 1a
@@ -146,7 +146,7 @@ int erpcCall(char* req, uint8_t size)
     }
 
     /** Call the function */
-    fncTable[fncIdx](paramNb, (char **)params);
+    fncTable[fncIdx](paramNb, params);
     return 0;
 }
 
@@ -159,7 +159,7 @@ int erpcCall(char* req, uint8_t size)
  * method with name `fncIdx` with correct parameters. What will this method
  * actually do, it is on user to define.
  */
-void erpcAddFunction(char* fncName, void (*f)(int argc, char *argv[]))
+void erpcAddFunction(char* fncName, void (*f)(int argc, JSMN_PARAMS_t argv))
 {
     fncIdx = fnv1a_hash((const unsigned char *)fncName) % FNC_TABLE_SIZE;
     fncTable[fncIdx] = f;
