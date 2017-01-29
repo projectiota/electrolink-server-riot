@@ -14,7 +14,7 @@ Once the first stable version will be released, efforts will be puts on supporti
 First, clone the repository
 
 ```
-git clone https://github.com/ks156/weio_firmware
+git clone https://github.com/ks156/electrolink-riot
 ```
 
 Clone RIOT-OS. By default, RIOS-OS is cloned on the top level. If RIOT-OS is present elsewhere on your system, you'll have to set ```RIOTBASE``` in the Makefile to point to the correct PATH.
