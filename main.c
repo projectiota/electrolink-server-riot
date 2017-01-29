@@ -11,7 +11,8 @@ int main(void)
 {
 #ifdef USE_USB
     IAP_GetSerialNumber(GUID);
-    CDC_Init(&stream, GUID);
+    CDC_Init(GUID);
+    USBRegisterStream(&stream);
 #endif
 
     erpcAddFunction("digitalWrite", digitalWrite);

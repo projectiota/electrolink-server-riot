@@ -44,7 +44,8 @@ extern uint8_t StringDescriptor[];
 extern uint8_t ConfigDescriptor[];
 
 extern uint8_t USBSerialStringDescriptor[];
-ErrorCode_t CDC_Init(CMDStream *stream, uint32_t guid[4]);
+ErrorCode_t CDC_Init(uint32_t guid[4]);
+void USBRegisterStream(CMDStream * stream);
 
 #endif /* CDC_H_ */
 

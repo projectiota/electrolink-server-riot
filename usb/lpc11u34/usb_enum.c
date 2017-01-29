@@ -259,7 +259,14 @@ void inline CDC_GenerateSerialDescriptor(uint32_t guid[4]) {
     }
 }
 
-ErrorCode_t CDC_Init(CMDStream *stream, uint32_t guid[4]) {
+void USBRegisterStream(CMDStream *stream) {
+    stream->available = CDC_Stream_available;
+    stream->read       = CDC_Stream_read;
+    stream->readByte  = CDC_Stream_readByte;
+    stream->write      = CDC_Stream_write;
+}
+
+ErrorCode_t CDC_Init(uint32_t guid[4]) {
     USBD_API_INIT_PARAM_T usb_param;
     USB_CORE_DESCS_T desc;
     USBD_HANDLE_T hUsb;
@@ -331,10 +338,6 @@ ErrorCode_t CDC_Init(CMDStream *stream, uint32_t guid[4]) {
     /* USB Connect */
     pUsbApi->hw->Connect(hUsb, 1);
 
-    stream->available = CDC_Stream_available;
-    stream->read       = CDC_Stream_read;
-    stream->readByte  = CDC_Stream_readByte;
-    stream->write      = CDC_Stream_write;
 
     return LPC_OK;
 }
@@ -350,7 +353,6 @@ void USB_pin_clk_init(void) {
        address the wrong status in VBUSDebouncing bit in CmdStatus register. It
        happens on the NXP Validation Board only that a wrong ESD protection chip is used. */
     LPC_IOCON ->PIO0_3 &= ~0x1F;
-    //  LPC_IOCON->PIO0_3   |= ((0x1<<3)|(0x01<<0));    /* Secondary function VBUS */
     LPC_IOCON ->PIO0_3 |= (0x01 << 0); /* Secondary function VBUS */
     LPC_IOCON ->PIO0_6 &= ~0x07;
     LPC_IOCON ->PIO0_6 |= (0x01 << 0); /* Secondary function SoftConn */
