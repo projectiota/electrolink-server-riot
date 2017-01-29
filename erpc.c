@@ -11,6 +11,7 @@
 
 #include "global.h"
 #include "jsmn.h"
+#include "api.h"
 
 #define JSONRPC_METHOD_KEY "method"
 #define JSONRPC_PARAMS_KEY "params"
@@ -144,8 +145,12 @@ int erpcCall(char* req, uint8_t size)
         }
     }
 
-    /** Call the function */
-    fncTable[fncIdx](paramNb, params);
+    /** Call the function only if the pointer is not pointing on the reset
+      * vecotr (0x0) */
+    if (fncTable[fncIdx] == 0)
+        SendStatus(STATUS_UNRECOGNIZED);
+    else
+        fncTable[fncIdx](paramNb, params);
     return 0;
 }
 

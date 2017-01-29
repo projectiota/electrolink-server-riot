@@ -11,6 +11,14 @@
 #ifndef _API_H_
 #define _API_H_
 
+typedef enum {
+    STATUS_OK,
+    STATUS_KO,
+    STATUS_NOT_IMPLEMENTED,
+	STATUS_UNRECOGNIZED
+} API_STATUS;
+
+void SendStatus(API_STATUS status);
 void RegisterFunctions(void);
 void pinMode(int argc, JSMN_PARAMS_t argv);
 void digitalWrite(int argc, JSMN_PARAMS_t argv);

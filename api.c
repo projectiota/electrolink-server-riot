@@ -13,12 +13,6 @@
 
 #define API_DEBUG
 
-typedef enum {
-    STATUS_OK,
-    STATUS_KO,
-    STATUS_NOT_IMPLEMENTED
-} API_STATUS;
-
 /* This is a private function to send back the command status */
 void SendStatus(API_STATUS status)
 {
@@ -32,6 +26,9 @@ void SendStatus(API_STATUS status)
             break;
         case STATUS_NOT_IMPLEMENTED:
             str = "{ \"Status\": \"Not implemented\" }";
+            break;
+        case STATUS_UNRECOGNIZED:
+            str = "{ \"Status\": \"Method not recognized\" }";
             break;
     }
     stream.write(str, strlen(str));
@@ -115,5 +112,4 @@ void digitalRead(int argc, JSMN_PARAMS_t argv)
     char str  [64];
     sprintf((char*) str, "{ \"digitalRead\": \"%s\", \"value\": \"%d\" }",(char*)argv[0],value);
     stream.write(str, strlen(str));
-    printf("pinValue : %d\n", value);
 }
