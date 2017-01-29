@@ -25,7 +25,7 @@ int main(void)
     USBRegisterStream(&stream);
 #endif
 
-    erpcAddFunction("digitalWrite", digitalWrite);
+    RegisterFunctions();
 
     uint8_t size = 0;
     char buf[64];

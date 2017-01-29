@@ -11,6 +11,9 @@
 #ifndef _API_H_
 #define _API_H_
 
+void RegisterFunctions(void);
+void pinMode(int argc, JSMN_PARAMS_t argv);
 void digitalWrite(int argc, JSMN_PARAMS_t argv);
+void digitalRead(int argc, JSMN_PARAMS_t argv);
 
 #endif

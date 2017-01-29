@@ -162,4 +162,7 @@ void erpcAddFunction(char* fncName, void (*f)(int argc, JSMN_PARAMS_t argv))
 {
     fncIdx = fnv1a_hash((const unsigned char *)fncName) % FNC_TABLE_SIZE;
     fncTable[fncIdx] = f;
+#ifdef ERPC_DEBUG
+    printf("Hash %d - %s\n", fncIdx, (const unsigned char*)fncName);
+#endif
 }
