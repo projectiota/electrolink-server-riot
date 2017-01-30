@@ -11,7 +11,7 @@
 #include "global.h"
 #include "periph/gpio.h"
 
-#define API_DEBUG
+uint8_t API_MODE[4] = {GPIO_IN, GPIO_OUT, GPIO_IN_PD, GPIO_IN_PU};
 
 /* This is a private function to send back the command status */
 void SendStatus(API_STATUS status)
@@ -59,9 +59,9 @@ void pinMode(int argc, JSMN_PARAMS_t argv)
         port = 1;
         pin -= 32;
     }
-    error = gpio_init(GPIO_PIN(port, pin), mode);
+    error = gpio_init(GPIO_PIN(port, pin), API_MODE[mode]);
 #ifdef API_DEBUG
-    printf("pinMode : port %d, pin %d, mode %d\n", port, pin, mode);
+    printf("pinMode : port %d, pin %d, mode %d\n", port, pin, API_MODE[mode]);
 #endif
     if (!error) {
           SendStatus(STATUS_OK);
