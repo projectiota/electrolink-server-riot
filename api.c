@@ -19,16 +19,16 @@ void SendStatus(API_STATUS status)
     char* str = NULL;
     switch(status) {
         case STATUS_OK:
-            str = "{ \"Status\": \"OK\" }";
+            str = "{ \"method\": \"Status\" , \"params\": [0] }";
             break;
         case STATUS_KO:
-            str = "{ \"Status\": \"KO\" }";
+            str = "{ \"method\": \"Status\" , \"params\": [-1] }";
             break;
         case STATUS_NOT_IMPLEMENTED:
-            str = "{ \"Status\": \"Not implemented\" }";
+            str = "{ \"method\": \"Status\" , \"params\": [-2] }";
             break;
         case STATUS_UNRECOGNIZED:
-            str = "{ \"Status\": \"Method not recognized\" }";
+            str = "{ \"method\": \"Status\" , \"params\": [-3] }";
             break;
     }
     stream.write(str, strlen(str));
@@ -110,6 +110,6 @@ void digitalRead(int argc, JSMN_PARAMS_t argv)
 #endif
     uint8_t value = gpio_read(GPIO_PIN(port, pin));
     char str  [64];
-    sprintf((char*) str, "{ \"digitalRead\": \"%s\", \"value\": \"%d\" }",(char*)argv[0],value);
+    sprintf((char*) str, "{ \"method\": \"digitalRead\", \"params\": [%s, %d] }",(char*)argv[0],value);
     stream.write(str, strlen(str));
 }
