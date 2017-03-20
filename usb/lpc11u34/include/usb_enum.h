@@ -33,7 +33,7 @@
 #ifndef CDC_H_
 #define CDC_H_
 
-#include "LPC11Uxx.h"
+#include "vendor/LPC11Uxx.h"
 #include "mw_usbd_rom_api.h"
 #include "power_api.h"
 #include "global.h"
